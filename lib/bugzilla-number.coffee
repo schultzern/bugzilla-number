@@ -10,7 +10,9 @@ module.exports = BugzillaNumber =
 
   # see the grammar file ../grammars/bugzilla-number-grammar.cson
   supported_scopes: [ 'storage.type.class.bugzilla-number',
-    'storage.type.class.gh-number', 'storage.type.class.cve-number'
+                      'storage.type.class.gh-number', 
+                      'storage.type.class.cve-number',
+                      'storage.type.class.pr-number'
   ]
 
   activate: (state) ->

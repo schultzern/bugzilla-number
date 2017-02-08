@@ -50,4 +50,8 @@ describe 'Bugzilla-number grammar', ->
     {tokens} = grammar.tokenizeLine('CVE-2015-0042')
     expect(tokens[0]).toEqual value : 'CVE-2015-0042', scopes :
       ['text.bugzilla-number', 'storage.type.class.cve-number']
-
+     
+  it 'tokenizes a PR-number ID', ->
+    {tokens} = grammar.tokenizeLine('PR12345')
+    expect(tokens[0]).toEqual value : 'PR12345', scopes :
+      ['text.bugzilla-number', 'storage.type.class.pr-number']

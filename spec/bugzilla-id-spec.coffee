@@ -52,3 +52,7 @@ describe "BugzillaID", ->
     it "returns a valid URL for a 'gh#yast/yast-core#42' bug", ->
       bug = new BugzillaID("gh#yast/yast-core#42")
       expect(bug.bugUrl()).toEqual("https://github.com/yast/yast-core/issues/42")
+      
+    it "returns a valid URL for a 'PR12345' bug", ->
+      bug = new BugzillaID("PR12345")
+      expect(bug.bugUrl()).toEqual("http://loke/bugzilla/show_bug.cgi?id=12345")

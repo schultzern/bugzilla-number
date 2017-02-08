@@ -50,21 +50,31 @@ class BugzillaID
     "bxc": "https://bugzilla.xamarin.com/show_bug.cgi?id=%d"
 
   constructor: (id) ->
-    match = /^(\w+)\s*(#|)\s*(\d+)$/.exec(id)
+    
+    # TODO remove everything that is unneccesary form the code.
+    match = null
     
     [_all, @bugzilla, _separator, @bugid] = match if match?
-    
+    console.debug "#{@bugzilla}"
     # try some special cases
     if !@bugzilla?
       # CVE
       match = /^(CVE)-(\d+-\d+)$/.exec(id)
       [_all, @bugzilla, @bugid] = match if match?
+      console.debug "CVE"
       
     if !@bugzilla?
       # GitHub issue
       match = /^(gh#\S+)#(\d+)$/.exec(id)
       [_all, @bugzilla, @bugid] = match if match?
-
+      console.debug "GitHub Issue"
+    
+    if !@bugzilla?
+      # PR in bugzilla
+      match = /^(PR)(\d+)$/.exec(id)
+      [_all, @bugzilla, @bugid] = match if match?
+      console.debug "PR! Bugzilla: #{@bugzilla} BugId: #{@bugid}"
+      
   bugUrl: ->
     return null unless @bugzilla? && @bugid?
 
@@ -76,7 +86,10 @@ class BugzillaID
     if @bugzilla.substr(0, ghPrefix.length) is ghPrefix
       project = /^gh#(\S+)$/.exec(@bugzilla)[1]
       return "https://github.com/#{project}/issues/#{@bugid}" if project?
-
+    
+    prPrefix = 'PR'
+    if @bugzilla.substr(0, prPrefix.length) is prPrefix
+      return "http://loke/bugzilla/show_bug.cgi?id=#{@bugid}"
     # not found
     null
     

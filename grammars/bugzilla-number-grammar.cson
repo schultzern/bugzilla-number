@@ -1,6 +1,7 @@
 'scopeName': 'text.bugzilla-number'
 'name': 'Bugzilla'
-'injectionSelector': 'comment, text'
+'injectionSelector': 'comment, text, source.diff'
+'fileTypes':'.diff'
 'patterns': [
   {
     # see https://en.opensuse.org/openSUSE:Packaging_Patches_guidelines#Current_set_of_abbreviations
@@ -25,5 +26,10 @@
     # see https://cve.mitre.org/cve/identifiers/syntaxchange.html#new
     'match': '\\bCVE-(\\d{4})-(\\d{4,})\\b'
     'name': 'storage.type.class.cve-number'
+  }
+  {
+    # PR-number (e.g. PR12345 )
+    'match': '\\b(PR)(\\d+)\\b'
+    'name': 'storage.type.class.pr-number'
   }
 ]
